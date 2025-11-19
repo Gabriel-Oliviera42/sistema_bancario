@@ -53,4 +53,13 @@ public class ContaTest {
         assertTrue(conta.sacar(75.0));
         assertEquals(0.0, conta.getSaldo());
     }
+
+    @Test
+    void deveCriarContaComSaldoZeroSeInicialNegativo() {
+        // Entradas: Tentar criar uma conta com saldo inicial de -100.0
+        Conta conta = new Conta(-100.0);
+        
+        // Asserção: O saldo deve ser 0.0, não -100.0 (Verificação do comportamento esperado)
+        assertEquals(0.0, conta.getSaldo(), "O saldo deve ser zero se o valor inicial for negativo.");
+    }
 }
