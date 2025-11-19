@@ -36,17 +36,21 @@ public class Conta {
     }
 
     public boolean sacar(double valor) {
+        double valorComTaxa = valor;
+        
+        // CORREÇÃO DO HOTFIX
+        if (valor > 100.0) {
+            valorComTaxa = valor + 0.50; 
+        }
 
-        if (valor <= 0) {
-            return false; // Não permite saque de zero ou negativo
+        // A VALIDAÇÃO e o DESCONTO DEVEM USAR 'valorComTaxa'
+        if (valor <= 0 || valorComTaxa > saldo) {
+            return false;
         }
         
-        if (valor > saldo) {
-            return false; // Não permite saque se o saldo for insuficiente
-        }
-
-        this.saldo -= valor;
-        return true; // Saque realizado com sucesso
+        // ESTA LINHA É CRÍTICA: Desconta o valor com a taxa.
+        this.saldo -= valorComTaxa;
+        return true;
     }
 
     public boolean transferir(Conta destino, double valor) {
