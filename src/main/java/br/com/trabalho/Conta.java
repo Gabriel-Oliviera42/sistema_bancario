@@ -48,4 +48,24 @@ public class Conta {
         this.saldo -= valor;
         return true; // Saque realizado com sucesso
     }
+
+    public boolean transferir(Conta destino, double valor) {
+    
+        // 1. Validação do valor
+        if (valor <= 0) {
+            return false;
+        }
+        
+        // 2. Tenta sacar da conta de origem.
+        // O método sacar já faz a validação de saldo insuficiente.
+        if (this.sacar(valor)) {
+            // 3. Se o saque foi bem-sucedido, deposita na conta de destino.
+            // O método depositar já faz a validação de limite de depósito (se implementado)
+            destino.depositar(valor);
+            return true;
+        }
+        
+        // 4. Se o saque falhou (saldo insuficiente, por exemplo)
+        return false;
+    }
 }
