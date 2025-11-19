@@ -82,20 +82,19 @@ public class ContaTest {
     }
 
     @Test
-    void deveAplicarTaxaDeSaqueAcimaDeCem() {
-        // 1. Arrange: Saldo inicial suficiente para o saque de 100.01 + 0.50 de taxa
-        Conta conta = new Conta(500.0);
-        double valorSaque = 100.01;
-        double taxa = 0.50;
-        double valorTotalDescontado = valorSaque + taxa; // 100.51
+    void deveTransferirValorValidoEntreContas() {
+        Conta origem = new Conta(500.0);
+        Conta destino = new Conta(100.0);
+        double valorTransferencia = 150.0;
 
-        // 2. Act: Executar o saque
-        boolean sucesso = conta.sacar(valorSaque);
+        // Ação: Tentar transferir
+        assertTrue(origem.transferir(destino, valorTransferencia), "A transferência deve ser bem-sucedida.");
 
-        // 3. Assert: Verificar o sucesso e o saldo final
-        assertTrue(sucesso, "O saque com taxa deveria ser bem-sucedido.");
+        // Asserções:
+        // Origem: 500.0 - 150.0 = 350.0
+        assertEquals(350.0, origem.getSaldo(), "O saldo da conta de origem deve diminuir o valor exato.");
         
-        // Saldo esperado: 500.0 - 100.51 = 399.49
-        assertEquals(399.49, conta.getSaldo(), "O saldo deve refletir o saque mais a taxa.");
+        // Destino: 100.0 + 150.0 = 250.0
+        assertEquals(250.0, destino.getSaldo(), "O saldo da conta de destino deve aumentar o valor exato.");
     }
 }
