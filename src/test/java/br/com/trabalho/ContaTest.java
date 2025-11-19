@@ -80,4 +80,21 @@ public class ContaTest {
         // O saldo deve permanecer intacto, 100.0
         assertEquals(100.0, conta.getSaldo()); 
     }
+
+    @Test
+    void deveTransferirValorValidoEntreContas() {
+        Conta origem = new Conta(500.0);
+        Conta destino = new Conta(100.0);
+        double valorTransferencia = 150.0;
+
+        // Ação: Tentar transferir
+        assertTrue(origem.transferir(destino, valorTransferencia), "A transferência deve ser bem-sucedida.");
+
+        // Asserções:
+        // Origem: 500.0 - 150.0 = 350.0
+        assertEquals(350.0, origem.getSaldo(), "O saldo da conta de origem deve diminuir o valor exato.");
+        
+        // Destino: 100.0 + 150.0 = 250.0
+        assertEquals(250.0, destino.getSaldo(), "O saldo da conta de destino deve aumentar o valor exato.");
+    }
 }
