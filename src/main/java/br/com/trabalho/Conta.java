@@ -4,6 +4,8 @@ public class Conta {
     
     private double saldo;
 
+    private static final double LIMITE_MAXIMO_DEPOSITO = 5000.0;
+
     // Construtor: Adicionando validação
     public Conta(double saldoInicial) {
         if (saldoInicial < 0) {
@@ -14,10 +16,19 @@ public class Conta {
         }
     }
 
-    public void depositar(double valor) {
-        if (valor > 0) {
-            this.saldo += valor;
+    public boolean depositar(double valor) {
+        
+        if (valor <= 0) {
+            return false;
         }
+
+        // NOVA VALIDAÇÃO: Se o valor exceder o limite, rejeita o depósito
+        if (valor > LIMITE_MAXIMO_DEPOSITO) {
+            return false; 
+        }
+
+        this.saldo += valor;
+        return true;
     }
 
     public double getSaldo() {

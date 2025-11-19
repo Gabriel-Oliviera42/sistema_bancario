@@ -62,4 +62,22 @@ public class ContaTest {
         // Asserção: O saldo deve ser 0.0, não -100.0 (Verificação do comportamento esperado)
         assertEquals(0.0, conta.getSaldo(), "O saldo deve ser zero se o valor inicial for negativo.");
     }
+
+    @Test
+    void deveDepositarValorAbaixoDoLimite() {
+        Conta conta = new Conta(100.0);
+        // 4999.99 deve ser aceito
+        assertTrue(conta.depositar(4999.99));
+        // Saldo esperado: 5099.99
+        assertEquals(5099.99, conta.getSaldo()); 
+    }
+
+    @Test
+    void naoDeveDepositarValorAcimaDoLimite() {
+        Conta conta = new Conta(100.0);
+        // 5000.01 deve ser rejeitado
+        assertFalse(conta.depositar(5000.01)); 
+        // O saldo deve permanecer intacto, 100.0
+        assertEquals(100.0, conta.getSaldo()); 
+    }
 }
