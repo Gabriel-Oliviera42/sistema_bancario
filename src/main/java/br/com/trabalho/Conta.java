@@ -1,10 +1,17 @@
 package br.com.trabalho;
 
 public class Conta {
+    
     private double saldo;
 
+    // Construtor: Adicionando validação
     public Conta(double saldoInicial) {
-        this.saldo = saldoInicial;
+        if (saldoInicial < 0) {
+            // Se o valor inicial for negativo, força o saldo para zero.
+            this.saldo = 0.0;
+        } else {
+            this.saldo = saldoInicial;
+        }
     }
 
     public void depositar(double valor) {
