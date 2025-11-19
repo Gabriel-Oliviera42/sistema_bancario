@@ -24,4 +24,33 @@ public class ContaTest {
         conta.depositar(-25.0);
         assertEquals(50.0, conta.getSaldo()); // Saldo deve permanecer o mesmo
     }
+
+    @Test
+    void deveSacarValorValido() {
+        Conta conta = new Conta(200.0);
+        conta.sacar(50.0);
+        assertEquals(150.0, conta.getSaldo());
+    }
+
+    @Test
+    void deveRetornarFalseAoSacarValorNegativoOuZero() {
+        Conta conta = new Conta(100.0);
+        assertFalse(conta.sacar(0.0));
+        assertFalse(conta.sacar(-10.0));
+        assertEquals(100.0, conta.getSaldo()); // O saldo deve permanecer intacto
+    }
+
+    @Test
+    void deveRetornarFalseParaSaqueComSaldoInsuficiente() {
+        Conta conta = new Conta(50.0);
+        assertFalse(conta.sacar(100.0));
+        assertEquals(50.0, conta.getSaldo()); // O saldo não deve mudar
+    }
+
+    @Test
+    void deveSacarTodoOSaldo() {
+        Conta conta = new Conta(75.0);
+        assertTrue(conta.sacar(75.0));
+        assertEquals(0.0, conta.getSaldo());
+    }
 }

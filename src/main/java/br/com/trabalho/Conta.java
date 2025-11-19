@@ -16,4 +16,18 @@ public class Conta {
     public double getSaldo() {
         return saldo;
     }
+
+    public boolean sacar(double valor) {
+
+        if (valor <= 0) {
+            return false; // Não permite saque de zero ou negativo
+        }
+        
+        if (valor > saldo) {
+            return false; // Não permite saque se o saldo for insuficiente
+        }
+
+        this.saldo -= valor;
+        return true; // Saque realizado com sucesso
+    }
 }
